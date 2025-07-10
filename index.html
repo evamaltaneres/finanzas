@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi App Financiera</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4caf50"/>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    h1 { text-align: center; }
+    .botones { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+    .categorias { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
+    .filtros { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+    button, select { padding: 10px 20px; font-size: 16px; }
+    #saldo { font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+    ul { list-style: none; padding: 0; }
+    li { border-bottom: 1px solid #ddd; padding: 8px 0; display: flex; justify-content: space-between; align-items: center; }
+    canvas { max-width: 100%; }
+    .btn-eliminar {
+      margin-left: 10px; padding: 4px 8px; font-size: 12px;
+      background-color: #f44336; color: white; border: none; cursor: pointer;
+    }
+    .btn-editar {
+      margin-left: 10px; padding: 4px 8px; font-size: 12px;
+      background-color: #2196f3; color: white; border: none; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Finanzas Personales</h1>
+
+  <div class="botones">
+    <button onclick="mostrarCategorias('Ingreso')">Ingreso</button>
+    <button onclick="mostrarCategorias('Egreso')">Egreso</button>
+  </div>
+
+  <div class="categorias" id="categorias"></div>
+
+  <div class="filtros">
+    <select id="filtroMes" onchange="actualizarUI()">
+      <option value="">Todos los meses</option>
+    </select>
+    <select id="filtroTipo" onchange="actualizarUI()">
+      <option value="">Todos los tipos</option>
+      <option value="Ingreso">Ingreso</option>
+      <option value="Egreso">Egreso</option>
+    </select>
+  </div>
+
+  <div id="saldo">Saldo: $0.00</div>
+
+  <h2>Movimientos</h2>
+  <ul id="movimientos"></ul>
+
+  <h2>Gráfico mensual</h2>
+  <canvas id="grafico" width="600" height="300"></canvas>
+
+  <h2>Gráfico por categoría (mes actual)</h2>
+  <canvas id="graficoCategorias" width="600" height="300"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="finanzas.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
